@@ -25,17 +25,17 @@ public class TrainingCenterServiceImpl implements TrainingCenterService {
 
     @Override
     public List<Student> sortStudentByAverageMark(TrainingCenter trainingCenter) {
-        return trainingCenter.getStudentList().stream().sorted(Comparator.comparing(o -> markService.averageStudentMark(o))).collect(Collectors.toList());
+        return trainingCenter.getStudentList().stream().sorted(Comparator.comparing(o -> markService.calcAverageStudentMark(o))).collect(Collectors.toList());
     }
 
     @Override
     public List<Student> sortStudentByTimeUntilStudyEnd(TrainingCenter trainingCenter) {
-        return trainingCenter.getStudentList().stream().sorted(Comparator.comparing(o -> studyTimeService.hoursUntilEndOfCurriculum(o, trainingCenter))).collect(Collectors.toList());
+        return trainingCenter.getStudentList().stream().sorted(Comparator.comparing(o -> studyTimeService.calcStudentHoursUntilEndOfCurriculum(o, trainingCenter))).collect(Collectors.toList());
     }
 
     @Override
     public List<Student> filterByChanceToSuccessfulCompleteCurriculum(TrainingCenter trainingCenter) {
-        return trainingCenter.getStudentList().stream().filter((o) -> markService.potentialSuccessfulStudyEnd(o, trainingCenter)).collect(Collectors.toList());
+        return trainingCenter.getStudentList().stream().filter(o -> markService.isStudentCanSuccessfulStudyEnd(o, trainingCenter)).collect(Collectors.toList());
     }
 
 }

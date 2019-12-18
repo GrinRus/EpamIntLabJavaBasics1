@@ -7,9 +7,11 @@ import java.time.LocalDate;
 
 public interface StudyTimeService {
 
-    Long studentCurriculumDuration(Student student);
+    Long calcStudentCurriculumDuration(Student student);
 
-    LocalDate studentEndCurriculumDate(Student student, TrainingCenter trainingCenter);
+    LocalDate calcStudentEndCurriculumDate(Student student, TrainingCenter trainingCenter);
 
-    Long hoursUntilEndOfCurriculum(Student student, TrainingCenter trainingCenter);
+    long calcStudentDaysUntilEndOfCurriculum(Student student, TrainingCenter trainingCenter);
+
+    Long calcStudentHoursUntilEndOfCurriculum(Student student, TrainingCenter trainingCenter);
 }

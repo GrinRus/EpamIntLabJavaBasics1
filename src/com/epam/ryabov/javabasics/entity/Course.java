@@ -1,17 +1,15 @@
 package com.epam.ryabov.javabasics.entity;
 
-import java.time.Duration;
-
 public class Course {
 
     private Long id;
     private String name;
-    private Duration duration;
+    private Long durationHours;
 
-    public Course(Long id, String name, Duration duration) {
+    public Course(Long id, String name, Long durationHours) {
         this.id = id;
         this.name = name;
-        this.duration = duration;
+        this.durationHours = durationHours;
     }
 
     public Long getId() {
@@ -30,11 +28,12 @@ public class Course {
         this.name = name;
     }
 
-    public Duration getDuration() {
-        return duration;
+    public Long getDurationHours() {
+        return durationHours;
     }
 
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public void setDurationHours(Long durationHours) {
+        this.durationHours = durationHours;
     }
+
 }

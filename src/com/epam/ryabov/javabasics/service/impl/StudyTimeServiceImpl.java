@@ -11,23 +11,28 @@ import java.util.List;
 public class StudyTimeServiceImpl implements StudyTimeService {
 
     @Override
-    public Long studentCurriculumDuration(Student student) {
+    public Long calcStudentCurriculumDuration(Student student) {
         List<Course> courseList = student.getCurriculum().getCourseList();
         long res = 0L;
         for (Course course : courseList) {
-            res += course.getDuration().toHours();
+            res += course.getDurationHours();
         }
         return res;
     }
 
     @Override
-    public LocalDate studentEndCurriculumDate(Student student, TrainingCenter trainingCenter) {
-        long curriculumDuration = studentCurriculumDuration(student) / trainingCenter.getDurationStudyTime().toHours();
+    public LocalDate calcStudentEndCurriculumDate(Student student, TrainingCenter trainingCenter) {
+        long curriculumDuration = calcStudentCurriculumDuration(student) / trainingCenter.getDurationStudyTime();
         return student.getCurriculum().getStartDate().plusDays(curriculumDuration);
     }
 
     @Override
-    public Long hoursUntilEndOfCurriculum(Student student, TrainingCenter trainingCenter) {
-        return (long) (LocalDate.now().until(studentEndCurriculumDate(student, trainingCenter)).getDays()) * trainingCenter.getDurationStudyTime().toHours();
+    public long calcStudentDaysUntilEndOfCurriculum(Student student, TrainingCenter trainingCenter) {
+        return LocalDate.now().until(calcStudentEndCurriculumDate(student, trainingCenter)).getDays();
+    }
+
+    @Override
+    public Long calcStudentHoursUntilEndOfCurriculum(Student student, TrainingCenter trainingCenter) {
+        return calcStudentDaysUntilEndOfCurriculum(student, trainingCenter) * trainingCenter.getDurationStudyTime();
     }
 }

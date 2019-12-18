@@ -10,7 +10,7 @@ public class MarkServiceImpl implements MarkService {
     private StudyTimeService studyTimeService = new StudyTimeServiceImpl();
 
     @Override
-    public int studentSumMarks(Student student) {
+    public int sumOfStudentSumMarks(Student student) {
         int sumMarks = 0;
         for (Integer mark : student.getStudentProgress()) {
             sumMarks += mark;
@@ -19,7 +19,7 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public Double averageStudentMark(Student student) {
+    public Double calcAverageStudentMark(Student student) {
         Double averageStudentMark = 0D;
         int markCount = 0;
         for (Integer mark : student.getStudentProgress()) {
@@ -30,17 +30,18 @@ public class MarkServiceImpl implements MarkService {
     }
 
     @Override
-    public String studyStatus(Student student) {
-        if (averageStudentMark(student) < 4.5) {
+    public String checkStudyStatus(Student student, TrainingCenter trainingCenter) {
+        if (calcAverageStudentMark(student) < trainingCenter.getMinAverageMark()) {
             return "С текущим средним баллом подлежит отчислению.";
         }
         return "С текущим средним баллом может продолжать обучение.";
     }
 
     @Override
-    public boolean potentialSuccessfulStudyEnd(Student student, TrainingCenter trainingCenter) {
-        int studyDaysToEnd = (int) (studyTimeService.hoursUntilEndOfCurriculum(student, trainingCenter) / trainingCenter.getDurationStudyTime().toHours());
-        return (4.5 * student.getStudentProgress().toArray().length - studentSumMarks(student)) / 0.5 <= studyDaysToEnd;
+    public boolean isStudentCanSuccessfulStudyEnd(Student student, TrainingCenter trainingCenter) {
+        double nominator = sumOfStudentSumMarks(student) - trainingCenter.getMinAverageMark() * student.getStudentProgress().toArray().length;
+        double denominator = trainingCenter.getMinAverageMark() - trainingCenter.getMaxMark();
+        return nominator / denominator <= studyTimeService.calcStudentDaysUntilEndOfCurriculum(student, trainingCenter);
     }
 }
 

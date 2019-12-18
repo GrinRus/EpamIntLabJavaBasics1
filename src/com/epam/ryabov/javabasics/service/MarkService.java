@@ -4,11 +4,11 @@ import com.epam.ryabov.javabasics.entity.Student;
 import com.epam.ryabov.javabasics.entity.TrainingCenter;
 
 public interface MarkService {
-    int studentSumMarks(Student student);
+    int sumOfStudentSumMarks(Student student);
 
-    Double averageStudentMark(Student student);
+    Double calcAverageStudentMark(Student student);
 
-    String studyStatus(Student student);
+    String checkStudyStatus(Student student, TrainingCenter trainingCenter);
 
-    boolean potentialSuccessfulStudyEnd(Student student, TrainingCenter trainingCenter);
+    boolean isStudentCanSuccessfulStudyEnd(Student student, TrainingCenter trainingCenter);
 }

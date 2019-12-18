@@ -6,15 +6,33 @@ import com.epam.ryabov.javabasics.repostiroy.CurriculumRepository;
 
 public class CurriculumRepositoryImpl implements CurriculumRepository {
 
+    private Curriculum curriculum;
+
     @Override
-    public String addCourse(Course course, Curriculum curriculum) {
-        curriculum.getCourseList().add(course);
-        return "Add complete";
+    public boolean addCourse(Course course) {
+        return curriculum.getCourseList().add(course);
     }
 
     @Override
-    public String deleteCourse(Course course, Curriculum curriculum) {
-        curriculum.getCourseList().remove(course);
-        return "Delete complete";
+    public boolean deleteCourse(Course course) {
+        return curriculum.getCourseList().remove(course);
+    }
+
+    public CurriculumRepositoryImpl() {
+    }
+
+    public CurriculumRepositoryImpl(Curriculum curriculum) {
+        this.curriculum = curriculum;
+    }
+
+    @Override
+    public Curriculum getCurriculum() {
+        return curriculum;
+    }
+
+    @Override
+    public CurriculumRepository setCurriculum(Curriculum curriculum) {
+        this.curriculum = curriculum;
+        return this;
     }
 }

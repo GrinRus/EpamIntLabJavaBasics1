@@ -5,7 +5,11 @@ import com.epam.ryabov.javabasics.entity.Curriculum;
 
 public interface CurriculumRepository {
 
-    String addCourse(Course course, Curriculum curriculum);
+    boolean addCourse(Course course);
 
-    String deleteCourse(Course course, Curriculum curriculum);
+    boolean deleteCourse(Course course);
+
+    Curriculum getCurriculum();
+
+    CurriculumRepository setCurriculum(Curriculum curriculum);
 }
