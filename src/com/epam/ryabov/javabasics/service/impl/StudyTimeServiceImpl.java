@@ -13,11 +13,7 @@ public class StudyTimeServiceImpl implements StudyTimeService {
     @Override
     public Long calcStudentCurriculumDuration(Student student) {
         List<Course> courseList = student.getCurriculum().getCourseList();
-        long res = 0L;
-        for (Course course : courseList) {
-            res += course.getDurationHours();
-        }
-        return res;
+        return courseList.stream().mapToLong(Course::getDurationHours).sum();
     }
 
     @Override

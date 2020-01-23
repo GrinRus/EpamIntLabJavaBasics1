@@ -11,21 +11,13 @@ public class MarkServiceImpl implements MarkService {
 
     @Override
     public int sumOfStudentSumMarks(Student student) {
-        int sumMarks = 0;
-        for (Integer mark : student.getStudentProgress()) {
-            sumMarks += mark;
-        }
-        return sumMarks;
+        return student.getStudentProgress().stream().mapToInt(integer -> integer).sum();
     }
 
     @Override
     public Double calcAverageStudentMark(Student student) {
-        Double averageStudentMark = 0D;
-        int markCount = 0;
-        for (Integer mark : student.getStudentProgress()) {
-            averageStudentMark += mark;
-            markCount++;
-        }
+        double averageStudentMark = student.getStudentProgress().stream().mapToInt(integer -> integer).sum();
+        int markCount = student.getStudentProgress().size();
         return Math.round((averageStudentMark / markCount) * 10) / 10.0;
     }
 

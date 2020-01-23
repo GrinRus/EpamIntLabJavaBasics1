@@ -13,6 +13,7 @@ import com.epam.ryabov.javabasics.service.TrainingCenterService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DemoServiceImpl implements DemoService {
 
